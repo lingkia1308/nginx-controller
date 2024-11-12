@@ -12,5 +12,5 @@ spec:
   ports:
     - name: svc-port
       port: 80
-      targetPort: app-port
+      targetPort: 80
       protocol: TCP
