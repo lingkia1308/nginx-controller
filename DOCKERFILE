@@ -1,14 +1,6 @@
-# Use a small Go base image
-FROM golang:1.20-alpine
-
-# Set the working directory
+FROM golang:1.19-alpine
 WORKDIR /app
-
-# Download the http-echo binary
-RUN go install github.com/hashicorp/http-echo@latest
-
-# Expose the port the app runs on
+RUN apk add --no-cache git
+RUN git clone https://github.com/hashicorp/http-echo.git && cd http-echo && go build
 EXPOSE 5678
-
-# Command to run the http-echo server
-CMD ["http-echo", "-text=Hello, World!"]
+CMD ["./http-echo", "-text=Hello, World!"]
