@@ -43,7 +43,7 @@ metadata:
     ## Name of the ALB
     alb.ingress.kubernetes.io/group.name: dtp-eks-cluster-ingress
     ## The lowest possible priority
-    alb.ingress.kubernetes.io/group.order: "1000"
+    alb.ingress.kubernetes.io/group.order: "100"
     ## Name of the ALB
     alb.ingress.kubernetes.io/load-balancer-name: dtp-eks-cluster-ingress
     ## Must be the same as in `aws_lb.ingress.internal`
