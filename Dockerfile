@@ -1,20 +1,28 @@
-# Use Go 1.19 Alpine base image
-FROM golang:1.19-alpine
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MPL-2.0
 
-# Set the working directory inside the container
-WORKDIR /app
+FROM gcr.io/distroless/static-debian12:nonroot as default
 
-# Install git
-RUN apk add --no-cache git
+# TARGETOS and TARGETARCH are set automatically when --platform is provided.
+ARG TARGETOS
+ARG TARGETARCH
+ARG PRODUCT_VERSION
+ARG BIN_NAME
+ENV PRODUCT_NAME=$BIN_NAME
 
-# Clone the http-echo repository and checkout a stable version
-RUN git clone https://github.com/hashicorp/http-echo.git && \
-    cd http-echo && \
-    git checkout tags/v0.2.3 && \
-    go build
+LABEL name="http-echo" \
+      maintainer="HashiCorp Consul Team <consul@hashicorp.com>" \
+      vendor="HashiCorp" \
+      version=$PRODUCT_VERSION \
+      release=$PRODUCT_VERSION \
+      licenses="MPL-2.0" \
+      summary="A test webserver that echos a response. You know, for kids."
 
-# Set the entrypoint for the container
-ENTRYPOINT ["/app/http-echo/http-echo"]
+COPY dist/$TARGETOS/$TARGETARCH/$BIN_NAME /
+COPY LICENSE /usr/share/doc/$PRODUCT_NAME/LICENSE.txt
 
-# Expose port 8080 for the http-echo service
-EXPOSE 8080
+EXPOSE 5678/tcp
+
+ENV ECHO_TEXT="hello-world"
+
+ENTRYPOINT ["/http-echo"]
