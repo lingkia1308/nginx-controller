@@ -19,4 +19,4 @@ spec:
         - name: afsb-dtp-staging-eks-cluster
           image: 806263047535.dkr.ecr.ap-southeast-1.amazonaws.com/afsb-dtp-staging-repo:latest
           ports:
-            - containerPort: 3000
+            - containerPort: 80
