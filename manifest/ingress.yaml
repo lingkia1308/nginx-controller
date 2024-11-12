@@ -7,10 +7,11 @@ spec:
   ingressClassName: nginx
   rules:
     - http:
-        - path: /
-          pathType: Prefix
-          backend:
-            service:
-              name: nginx-ingress-svc
-              port:
-                number: 80
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: nginx-ingress-svc
+                port:
+                  number: 80
