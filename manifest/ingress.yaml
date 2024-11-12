@@ -63,5 +63,5 @@ spec:
                   name: app-svc
                   port:
                     ## Must be literally `use-annotation`
-                    name: use-annotation
+                    # name: use-annotation
                     number: 80
