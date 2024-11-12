@@ -41,6 +41,6 @@ spec:
     spec:
       containers:
         - name: afsb-dtp-error
-          image: 806263047535.dkr.ecr.ap-southeast-1.amazonaws.com/afsb-dtp-error-repo:latest  # Replace with your error handling image
+          image: 806263047535.dkr.ecr.ap-southeast-1.amazonaws.com/afsb-dtp-staging-repo:latest  # Replace with your error handling image
           ports:
             - containerPort: 80
