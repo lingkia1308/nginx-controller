@@ -5,6 +5,11 @@ metadata:
   namespace: apps
 spec:
   ingressClassName: nginx
+  defaultBackend:
+    service:
+      name: nginx-ingress-error-svc
+      port:
+        number: 80
   rules:
     - http:
         paths:

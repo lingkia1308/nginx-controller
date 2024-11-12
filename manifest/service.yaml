@@ -3,12 +3,26 @@ kind: Service
 metadata:
   name: nginx-ingress-svc
   namespace: apps
-  labels:
-    app.kubernetes.io/name: nginx-ingress-svc
 spec:
   type: ClusterIP
   selector:
-    app.kubernetes.io/name: afsb-dtp-staging-eks-cluster
+    app: afsb-dtp-staging-eks-cluster  # Matches the app label in the main deployment
+  ports:
+    - name: svc-port
+      port: 80
+      targetPort: 80
+      protocol: TCP
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-ingress-error-svc
+  namespace: apps
+spec:
+  type: ClusterIP
+  selector:
+    app: afsb-dtp-error  # Matches the app label in the error-handling deployment
   ports:
     - name: svc-port
       port: 80
