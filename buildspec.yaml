@@ -1,0 +1,59 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      docker: 20
+    commands:
+      - nohup /usr/local/bin/dockerd --host=unix:///var/run/docker.sock --host=tcp://127.0.0.1:2375 --storage-driver=overlay2&
+      - timeout 15 sh -c "until docker info; do echo .; sleep 1; done"
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR....
+      - aws --version
+      - $(aws ecr get-login --no-include-email --region ap-southeast-1)
+      - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
+      - IMAGE_TAG=${COMMIT_HASH:=latest}
+      - REPOSITORY_URI=$ECR_REPO_URL
+      ########
+      - export KUBECONFIG=$HOME/.kube/config
+  build:
+    commands:
+      - echo Build started on `date`
+      - echo Building the Docker image...
+      - docker build -t $ECR_REPO_URL:$IMAGE_TAG .
+      - docker tag $ECR_REPO_URL:$IMAGE_TAG $ECR_REPO_URL:latest
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Pushing to repository...
+      - docker push $ECR_REPO_URL:$IMAGE_TAG
+      - docker push $ECR_REPO_URL:latest
+      - echo "Update Kube Config configuration"
+      - aws eks update-kubeconfig --name $EKS_CLUSTERNAME --region ap-southeast-1
+      - kubectl get configmap aws-auth -o yaml -n kube-system
+      # - export ACCOUNT_ID=$AWS_ACCOUNT_ID
+      # - ROLE="    - rolearn: arn:aws:iam::$ACCOUNT_ID:role/codebuild-role\n      username: build\n      groups:\n        - system:masters"
+      # - kubectl get -n kube-system configmap/aws-auth -o yaml | awk "/mapRoles: \|/{print;print \"$ROLE\";next}1" > /tmp/auth-patch.yml
+      # - kubectl patch configmap/aws-auth -n kube-system --patch "$(cat /tmp/auth-patch.yml)"
+      - echo "Creating namespace with namespace.yaml"
+      - kubectl apply -f manifest/namespace.yaml
+      - echo "EXECUTING"
+      - SERVICE_NAME=first NS=apps envsubst < ./manifest/service.yml | kubectl apply -f -
+      - SERVICE_NAME=second NS=apps envsubst < ./manifest/service.yml | kubectl apply -f -
+      - SERVICE_NAME=third NS=apps envsubst < ./manifest/service.yml | kubectl apply -f -
+      - SERVICE_NAME=fourth NS=apps envsubst < ./manifest/service.yml | kubectl apply -f -
+      - SERVICE_NAME=error NS=apps envsubst < ./manifest/service.yml | kubectl apply -f -
+      - SERVICE_NAME=another-error NS=apps envsubst < ./manifest/service.yml | kubectl apply -f -
+      # - echo "Applying deployment manifest"
+      # - kubectl apply -f manifest/deployment.yaml
+      # - echo "Exposing service with service.yaml"
+      # - kubectl apply -f manifest/service.yaml
+      # - echo "Creating Ingress with ingress.yaml"
+      # - kubectl apply -f manifest/ingress.yaml
+      # - echo "All done!!!! Kubernetes changes applied"
+      # - echo Writing image definitions file...
+      # - printf '{"ImageURI":"%s"}' $ECR_REPO_URL:$IMAGE_TAG > imageDetail.json
+artifacts:
+  files:
+    - imageDetail.json
+    - manifest/*

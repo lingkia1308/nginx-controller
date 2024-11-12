@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: apss
+
+# ---
+# apiVersion: v1
+# kind: Namespace
+# metadata:
+#   name: game-2048
