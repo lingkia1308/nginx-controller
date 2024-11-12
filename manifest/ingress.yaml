@@ -52,14 +52,15 @@ metadata:
     kubernetes.io/ingress.class: alb
 spec:
   rules:
-    - http:
-        paths:
-          - pathType: Prefix
-            path: /
-            backend:
-              service:
-                ## The same ID as in `alb.ingress.kubernetes.io/actions.ID`
-                name: default
-                port:
-                  ## Must be literally `use-annotation`
-                  name: use-annotation
+    - host: test.focuslearningorg.com
+      http:
+          paths:
+            - pathType: Prefix
+              path: /
+              backend:
+                service:
+                  ## The same ID as in `alb.ingress.kubernetes.io/actions.ID`
+                  name: app-svc
+                  port:
+                    ## Must be literally `use-annotation`
+                    name: use-annotation
