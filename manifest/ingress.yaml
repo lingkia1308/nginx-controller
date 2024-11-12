@@ -11,7 +11,8 @@ spec:
       port:
         number: 80
   rules:
-    - http:
+    - host: test.focuslearningorg.com
+      http:
         paths:
           - path: /
             pathType: Prefix
