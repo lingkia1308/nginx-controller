@@ -28,3 +28,20 @@ spec:
       port: 80
       targetPort: 80
       protocol: TCP
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: test-svc
+  namespace: apps
+spec:
+  type: LoadBalancer
+  selector:
+    app: afsb-dtp-staging-eks-cluster  # Matches the app label in the error-handling deployment
+  ports:
+    - name: svc-port
+      port: 80
+      targetPort: 80
+      NodePort: 30100
+      protocol: TCP
