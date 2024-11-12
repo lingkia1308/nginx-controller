@@ -30,24 +30,12 @@ phases:
       - docker push $ECR_REPO_URL:latest
       - echo "Update Kube Config configuration"
       - aws eks update-kubeconfig --name $EKS_CLUSTERNAME --region ap-southeast-1
-      - kubectl get configmap aws-auth -o yaml -n kube-system
-      # - export ACCOUNT_ID=$AWS_ACCOUNT_ID
-      # - ROLE="    - rolearn: arn:aws:iam::$ACCOUNT_ID:role/codebuild-role\n      username: build\n      groups:\n        - system:masters"
-      # - kubectl get -n kube-system configmap/aws-auth -o yaml | awk "/mapRoles: \|/{print;print \"$ROLE\";next}1" > /tmp/auth-patch.yml
-      # - kubectl patch configmap/aws-auth -n kube-system --patch "$(cat /tmp/auth-patch.yml)"
       - echo "Creating namespace with namespace.yaml"
       - kubectl apply -f manifest/namespace.yaml
-      - echo "EXECUTING"
-      - SERVICE_NAME=first NS=apps envsubst < ./manifest/service.yml | kubectl apply -f -
-      - SERVICE_NAME=second NS=apps envsubst < ./manifest/service.yml | kubectl apply -f -
-      - SERVICE_NAME=third NS=apps envsubst < ./manifest/service.yml | kubectl apply -f -
-      - SERVICE_NAME=fourth NS=apps envsubst < ./manifest/service.yml | kubectl apply -f -
-      - SERVICE_NAME=error NS=apps envsubst < ./manifest/service.yml | kubectl apply -f -
-      - SERVICE_NAME=another-error NS=apps envsubst < ./manifest/service.yml | kubectl apply -f -
-      # - echo "Applying deployment manifest"
-      # - kubectl apply -f manifest/deployment.yaml
-      # - echo "Exposing service with service.yaml"
-      # - kubectl apply -f manifest/service.yaml
+      - echo "Applying deployment manifest"
+      - kubectl apply -f manifest/deployment.yaml
+      - echo "Exposing service with service.yaml"
+      - kubectl apply -f manifest/service.yaml
       # - echo "Creating Ingress with ingress.yaml"
       # - kubectl apply -f manifest/ingress.yaml
       # - echo "All done!!!! Kubernetes changes applied"

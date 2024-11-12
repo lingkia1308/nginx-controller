@@ -1,28 +1,20 @@
-# Copyright (c) HashiCorp, Inc.
-# SPDX-License-Identifier: MPL-2.0
+# Use the official Node.js image from Docker Hub as the base image
+FROM node:14
 
-FROM gcr.io/distroless/static-debian12:nonroot as default
+# Set the working directory inside the Docker container
+WORKDIR /usr/src/app
 
-# TARGETOS and TARGETARCH are set automatically when --platform is provided.
-ARG TARGETOS
-ARG TARGETARCH
-ARG PRODUCT_VERSION
-ARG BIN_NAME
-ENV PRODUCT_NAME=$BIN_NAME
+# Copy package.json and package-lock.json to the container
+COPY package*.json ./
 
-LABEL name="http-echo" \
-      maintainer="HashiCorp Consul Team <consul@hashicorp.com>" \
-      vendor="HashiCorp" \
-      version=$PRODUCT_VERSION \
-      release=$PRODUCT_VERSION \
-      licenses="MPL-2.0" \
-      summary="A test webserver that echos a response. You know, for kids."
+# Install Node.js dependencies
+RUN npm install
 
-COPY dist/$TARGETOS/$TARGETARCH/$BIN_NAME /
-COPY LICENSE /usr/share/doc/$PRODUCT_NAME/LICENSE.txt
+# Copy the rest of the application code to the container
+COPY . .
 
-EXPOSE 5678/tcp
+# Expose port 3000 to allow traffic to reach the app
+EXPOSE 3000
 
-ENV ECHO_TEXT="hello-world"
-
-ENTRYPOINT ["/http-echo"]
+# Command to start the Node.js application
+CMD ["npm", "start"]

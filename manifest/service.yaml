@@ -1,14 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: ${SERVICE_NAME}
-  namespace: ${NS}
+  name: nginx-ingress-svc
+  namespace: apps
   labels:
-    app.kubernetes.io/name: ${SERVICE_NAME}
+    app.kubernetes.io/name: nginx-ingress-svc
 spec:
   type: ClusterIP
   selector:
-    app.kubernetes.io/name: ${SERVICE_NAME}
+    app.kubernetes.io/name: afsb-dtp-staging-eks-cluster
   ports:
     - name: svc-port
       port: 80
