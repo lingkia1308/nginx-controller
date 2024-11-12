@@ -27,7 +27,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: listener-http-80
-  namespace: kube-system
+  # namespace: kube-system
   annotations:
     ## This Ingress must define at least 1 rule so it is explicit rule the
     ## same as default in `aws_lb.ingress.default_action`
