@@ -51,7 +51,7 @@ metadata:
     ## Uses AWS Load Balancer Controller
     kubernetes.io/ingress.class: alb
     alb.ingress.kubernetes.io/actions.forward-single-tg: >
-      {"type":"forward","targetGroupARN": "arn:aws:elasticloadbalancing:ap-southeast-1:806263047535:targetgroup/afsb-dtp-tg-1/2ff1e145e901f3b5"}
+      {"type":"forward","targetGroupARN": "arn:aws:elasticloadbalancing:ap-southeast-1:806263047535:targetgroup/afsb-dtp-tg-1/0206fa4e6eb3276d"}
 spec:
   rules:
     - host: test.focuslearningorg.com
