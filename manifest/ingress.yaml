@@ -50,6 +50,8 @@ metadata:
     alb.ingress.kubernetes.io/scheme: internet-facing
     ## Uses AWS Load Balancer Controller
     kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/actions.forward-single-tg: >
+      {"type":"forward","targetGroupARN": "arn:aws:elasticloadbalancing:ap-southeast-1:806263047535:targetgroup/afsb-dtp-tg-1/2ff1e145e901f3b5"}
 spec:
   rules:
     - host: test.focuslearningorg.com
@@ -60,8 +62,8 @@ spec:
               backend:
                 service:
                   ## The same ID as in `alb.ingress.kubernetes.io/actions.ID`
-                  name: app-svc
+                  name: forward-single-tg
                   port:
                     ## Must be literally `use-annotation`
-                    # name: use-annotation
-                    number: 80
+                    name: use-annotation
+                    # number: 80
