@@ -42,31 +42,20 @@ metadata:
       }
     ## Name of the ALB
     alb.ingress.kubernetes.io/group.name: dtp-eks-cluster-ingress
-    ## The lowest possible priority
     alb.ingress.kubernetes.io/group.order: "100"
-    ## Name of the ALB
     alb.ingress.kubernetes.io/load-balancer-name: dtp-eks-cluster-ingress
-    ## Must be the same as in `aws_lb.ingress.internal`
     alb.ingress.kubernetes.io/scheme: internet-facing
     kubernetes.io/ingress.class: alb
-    alb.ingress.kubernetes.io/actions.forward-single-tg: >
-      {"type":"forward","targetGroupARN": "arn:aws:elasticloadbalancing:ap-southeast-1:806263047535:targetgroup/afsb-dtp-tg-1/9b42f6fef41b643e"}
-    # kubernetes.io/ingress.class: "nginx"
 spec:
   ingressClassName: alb
   rules:
     - host: test.focuslearningorg.com
       http:
-          paths:
-            - pathType: Prefix
-              path: /
-              backend:
-                service:
-                  ## The same ID as in `alb.ingress.kubernetes.io/actions.ID`
-                  # name: app-svc
-                  # name: app-svc
-                  name: app-svc
-                  port:
-                    ## Must be literally `use-annotation`
-                    # name: use-annotation
-                    number: 80
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: app-svc
+              port:
+                number: 80
