@@ -29,8 +29,8 @@ phases:
       - docker push $ECR_REPO_URL:$IMAGE_TAG
       - docker push $ECR_REPO_URL:latest
       # - echo "Update Kube Config configuration"
-      # - aws eks update-kubeconfig --name $EKS_CLUSTERNAME --region ap-southeast-1
-      # - kubectl get configmap aws-auth -o yaml -n kube-system
+      - aws eks update-kubeconfig --name $EKS_CLUSTERNAME --region ap-southeast-1
+      - kubectl get configmap aws-auth -o yaml -n kube-system
       - echo "Creating namespace with namespace.yaml"
       - kubectl apply -f manifest/namespace.yaml
       - echo "Applying deployment manifest"
