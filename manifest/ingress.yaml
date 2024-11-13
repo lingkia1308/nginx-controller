@@ -57,5 +57,7 @@ spec:
           backend:
             service:
               name: app-svc
+              # name: use-annotations
               port:
-                number: 80
+                name: use-annotations
+                # number: 80
