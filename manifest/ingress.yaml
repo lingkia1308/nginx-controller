@@ -37,7 +37,7 @@ metadata:
         "fixedResponseConfig": {
           "contentType": "text/plain",
           "statusCode": "404",
-          "messageBody": ""
+          "messageBody": "Hiiii"
         }
       }
     ## Name of the ALB
