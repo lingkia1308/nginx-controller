@@ -57,7 +57,7 @@ metadata:
     alb.ingress.kubernetes.io/healthy-threshold-count: '5'
     alb.ingress.kubernetes.io/unhealthy-threshold-count: '2'
     ## Uses AWS Load Balancer Controller
-    alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS":443}, {"HTTP":80}]'
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80}]'
     kubernetes.io/ingress.class: alb
     # alb.ingress.kubernetes.io/actions.forward-single-tg: >
     #   {"type":"forward","targetGroupARN": "arn:aws:elasticloadbalancing:ap-southeast-1:806263047535:targetgroup/afsb-dtp-tg-1/f9e71ab5bdfa3e5f"}
@@ -74,7 +74,7 @@ spec:
                 service:
                   ## The same ID as in `alb.ingress.kubernetes.io/actions.ID`
                   # name: app-svc
-                  name: ingress-nginx-controller
+                  name: app-svc
                   port:
                     ## Must be literally `use-annotation`
                     # name: use-annotation
