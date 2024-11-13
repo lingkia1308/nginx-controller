@@ -9,7 +9,7 @@ metadata:
     kubernetes.io/ingress.class: alb
   name: app-svc
 spec:
-  ingressClassName: alb
+  # ingressClassName: alb
   type: ClusterIP
   selector:
     name: app
