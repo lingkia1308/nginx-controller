@@ -21,7 +21,7 @@ metadata:
     ## Uses AWS Load Balancer Controller
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80}]'
     kubernetes.io/ingress.class: alb
-    name: app-svc
+  name: app-svc
 spec:
   type: ClusterIP
   selector:
