@@ -64,7 +64,8 @@ spec:
                 service:
                   ## The same ID as in `alb.ingress.kubernetes.io/actions.ID`
                   # name: app-svc
-                  name: app-svc
+                  # name: app-svc
+                  name: forward-single-tg
                   port:
                     ## Must be literally `use-annotation`
                     # name: use-annotation
