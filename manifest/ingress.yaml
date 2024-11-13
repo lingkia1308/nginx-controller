@@ -63,7 +63,7 @@ metadata:
     #   {"type":"forward","targetGroupARN": "arn:aws:elasticloadbalancing:ap-southeast-1:806263047535:targetgroup/afsb-dtp-tg-1/f9e71ab5bdfa3e5f"}
     # kubernetes.io/ingress.class: "nginx"
 spec:
-  ingressClassName: nginx
+  # ingressClassName: nginx
   rules:
     - host: test.focuslearningorg.com
       http:
