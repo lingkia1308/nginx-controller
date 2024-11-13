@@ -1,7 +1,27 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: app-svc
+  annotations:
+    ## Name of the ALB
+    alb.ingress.kubernetes.io/group.name: dtp-eks-cluster-ingress
+    ## The lowest possible priority
+    alb.ingress.kubernetes.io/group.order: "100"
+    ## Name of the ALB
+    alb.ingress.kubernetes.io/load-balancer-name: dtp-eks-cluster-ingress
+    ## Must be the same as in `aws_lb.ingress.internal`
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/healthcheck-protocol: HTTP
+    alb.ingress.kubernetes.io/healthcheck-port: "30996" # Make sure you add the NodePort over here
+    alb.ingress.kubernetes.io/healthcheck-path: / # Put the path of readiness probe over here
+    alb.ingress.kubernetes.io/healthcheck-interval-seconds: '30'
+    alb.ingress.kubernetes.io/healthcheck-timeout-seconds: '5'
+    alb.ingress.kubernetes.io/success-codes: '200'
+    alb.ingress.kubernetes.io/healthy-threshold-count: '5'
+    alb.ingress.kubernetes.io/unhealthy-threshold-count: '2'
+    ## Uses AWS Load Balancer Controller
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80}]'
+    kubernetes.io/ingress.class: alb
+    name: app-svc
 spec:
   type: ClusterIP
   selector:
