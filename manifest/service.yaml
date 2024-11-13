@@ -3,8 +3,8 @@ kind: Service
 metadata:
   annotations:
     ## Name of the ALB
-    # alb.ingress.kubernetes.io/group.name: ingress-lb
-    # alb.ingress.kubernetes.io/load-balancer-name: ingress-lb
+    # alb.ingress.kubernetes.io/group.name: dtp-eks-cluster-ingress
+    # alb.ingress.kubernetes.io/load-balancer-name: dtp-eks-cluster-ingress
     # alb.ingress.kubernetes.io/scheme: internet-facing
     # kubernetes.io/ingress.class: alb
   name: app-svc
