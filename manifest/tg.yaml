@@ -1,9 +1,9 @@
-apiVersion: elbv2.k8s.aws/v1beta1
-kind: TargetGroupBinding
-metadata:
-  name: tg-binding
-spec:
-  serviceRef:
-    name: app-svc
-    port: 80
-  targetGroupARN: arn:aws:elasticloadbalancing:ap-southeast-1:806263047535:targetgroup/afsb-dtp-tg-1/f9e71ab5bdfa3e5f
+# apiVersion: elbv2.k8s.aws/v1beta1
+# kind: TargetGroupBinding
+# metadata:
+#   name: tg-binding
+# spec:
+#   serviceRef:
+#     name: app-svc
+#     port: 80
+#   targetGroupARN: arn:aws:elasticloadbalancing:ap-southeast-1:806263047535:targetgroup/afsb-dtp-tg-1/f9e71ab5bdfa3e5f
