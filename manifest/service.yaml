@@ -12,7 +12,7 @@ spec:
   # ingressClassName: alb
   type: ClusterIP
   selector:
-    name: app
+    app: app
   ports:
     - name: svc-port
       port: 80
