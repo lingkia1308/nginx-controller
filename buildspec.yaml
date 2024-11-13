@@ -37,8 +37,8 @@ phases:
       - kubectl apply -f manifest/deployment.yaml
       - echo "Exposing service with service.yaml"
       - kubectl apply -f manifest/service.yaml
-      # - echo "Exposing service with tg.yaml"
-      # - kubectl apply -f manifest/tg.yaml
+      - echo "Exposing service with tg.yaml"
+      - kubectl apply -f manifest/tg.yaml
       - echo "Creating Ingress with ingress.yaml"
       - kubectl apply -f manifest/ingress.yaml
       # - echo "All done!!!! Kubernetes changes applied"
