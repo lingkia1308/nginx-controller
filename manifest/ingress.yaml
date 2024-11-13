@@ -69,7 +69,7 @@ spec:
       http:
           paths:
             - pathType: Prefix
-              path: /*
+              path: /
               backend:
                 service:
                   ## The same ID as in `alb.ingress.kubernetes.io/actions.ID`
