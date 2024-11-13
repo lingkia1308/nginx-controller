@@ -37,8 +37,8 @@ phases:
       - kubectl apply -f manifest/deployment.yaml
       - echo "Exposing service with service.yaml"
       - kubectl apply -f manifest/service.yaml
-      - echo "Creating Ingress with ingress.yaml"
-      - kubectl apply -f manifest/ingress.yaml
+      # - echo "Creating Ingress with ingress.yaml"
+      # - kubectl apply -f manifest/ingress.yaml
       # - echo "All done!!!! Kubernetes changes applied"
       # - echo Writing image definitions file...
       # - printf '{"ImageURI":"%s"}' $ECR_REPO_URL:$IMAGE_TAG > imageDetail.json
