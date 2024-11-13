@@ -49,8 +49,8 @@ metadata:
     ## Must be the same as in `aws_lb.ingress.internal`
     alb.ingress.kubernetes.io/scheme: internet-facing
     kubernetes.io/ingress.class: alb
-    # alb.ingress.kubernetes.io/actions.forward-single-tg: >
-    #   {"type":"forward","targetGroupARN": "arn:aws:elasticloadbalancing:ap-southeast-1:806263047535:targetgroup/afsb-dtp-tg-1/f9e71ab5bdfa3e5f"}
+    alb.ingress.kubernetes.io/actions.forward-single-tg: >
+      {"type":"forward","targetGroupARN": "arn:aws:elasticloadbalancing:ap-southeast-1:806263047535:targetgroup/afsb-dtp-tg-1/9a996c9e97116d23"}
     # kubernetes.io/ingress.class: "nginx"
 spec:
   ingressClassName: alb
@@ -67,5 +67,5 @@ spec:
                   name: app-svc
                   port:
                     ## Must be literally `use-annotation`
-                    name: use-annotation
-                    # number: 80
+                    # name: use-annotation
+                    number: 80
