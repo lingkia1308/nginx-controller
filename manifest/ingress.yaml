@@ -1,63 +1,63 @@
-# apiVersion: networking.k8s.io/v1
-# kind: Ingress
-# metadata:
-#   name: app-ingress
-#   namespace: apps
-# spec:
-#   ingressClassName: nginx
-#   defaultBackend:
-#     service:
-#       name: nginx-ingress-error-svc
-#       port:
-#         number: 80
-#   rules:
-#     - host: test.focuslearningorg.com
-#       http:
-#         paths:
-#           - path: /
-#             pathType: Prefix
-#             backend:
-#               service:
-#                 name: nginx-ingress-svc
-#                 port:
-#                   number: 80
-
----
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: listener-http-80
-  namespace: kube-system
-  annotations:
-    ## This Ingress must define at least 1 rule so it is explicit rule the
-    ## same as default in `aws_lb.ingress.default_action`
-    alb.ingress.kubernetes.io/actions.default: |
-      {
-        "type": "fixed-response",
-        "fixedResponseConfig": {
-          "contentType": "text/plain",
-          "statusCode": "404",
-          "messageBody": "Hiiii"
-        }
-      }
-    ## Name of the ALB
-    alb.ingress.kubernetes.io/group.name: dtp-eks-cluster-ingress
-    alb.ingress.kubernetes.io/group.order: "100"
-    alb.ingress.kubernetes.io/load-balancer-name: dtp-eks-cluster-ingress
-    alb.ingress.kubernetes.io/scheme: internet-facing
-    kubernetes.io/ingress.class: alb
+  name: app-ingress
+  # namespace: apps
 spec:
-  ingressClassName: alb
+  ingressClassName: nginx
+  defaultBackend:
+    service:
+      name: app-svc
+      port:
+        number: 80
   rules:
     - host: test.focuslearningorg.com
       http:
         paths:
-        - path: /
-          pathType: Prefix
-          backend:
-            service:
-              name: app-svc
-              # name: use-annotations
-              port:
-                name: use-annotations
-                # number: 80
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: app-svc
+                port:
+                  number: 80
+
+---
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: listener-http-80
+#   namespace: kube-system
+#   annotations:
+#     ## This Ingress must define at least 1 rule so it is explicit rule the
+#     ## same as default in `aws_lb.ingress.default_action`
+#     alb.ingress.kubernetes.io/actions.default: |
+#       {
+#         "type": "fixed-response",
+#         "fixedResponseConfig": {
+#           "contentType": "text/plain",
+#           "statusCode": "404",
+#           "messageBody": "Hiiii"
+#         }
+#       }
+#     ## Name of the ALB
+#     alb.ingress.kubernetes.io/group.name: dtp-eks-cluster-ingress
+#     alb.ingress.kubernetes.io/group.order: "100"
+#     alb.ingress.kubernetes.io/load-balancer-name: dtp-eks-cluster-ingress
+#     alb.ingress.kubernetes.io/scheme: internet-facing
+#     kubernetes.io/ingress.class: alb
+# spec:
+#   ingressClassName: alb
+#   rules:
+#     - host: test.focuslearningorg.com
+#       http:
+#         paths:
+#         - path: /
+#           pathType: Prefix
+#           backend:
+#             service:
+#               name: app-svc
+#               # name: use-annotations
+#               port:
+#                 name: use-annotations
+#                 # number: 80
