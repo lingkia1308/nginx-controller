@@ -10,8 +10,9 @@ app.get('/', (req, res) => {
 // Example of a route that could simulate an error
 app.get('/error', (req, res) => {
   // Simulating an error
-  const error = new Error('Something went wrong!');
-  throw error; // This will trigger the error-handling middleware
+  // const error = new Error('Something went wrong!');
+  // throw error; // This will trigger the error-handling middleware
+  res.send('Hello, ERORRRRRRRRRRRR');
 });
 
 // Error-handling middleware
