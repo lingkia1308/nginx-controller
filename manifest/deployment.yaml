@@ -19,3 +19,26 @@ spec:
           image: 806263047535.dkr.ecr.ap-southeast-1.amazonaws.com/afsb-dtp-staging-repo:latest
           ports:
             - containerPort: 80
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: error
+  name: app-error
+spec:
+  selector:
+    matchLabels:
+      app: app-error
+  replicas: 5
+  template:
+    metadata:
+      labels:
+        app: app-error
+    spec:
+      containers:
+      - image: public.ecr.aws/l6m2t8p7/docker-2048:latest
+        imagePullPolicy: Always
+        name: app-error
+        ports:
+        - containerPort: 80
